@@ -16,6 +16,8 @@ use TerloquentID\Etc\TerloquentBase;
  * @property-read string $name
  * @property-read float $lat
  * @property-read float $long
+ * @property-read City $city
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Village> $villages
  */
 class District extends TerloquentBase
 {

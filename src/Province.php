@@ -14,6 +14,7 @@ use TerloquentID\Etc\TerloquentBase;
  * @property-read string $name
  * @property-read float $lat
  * @property-read float $long
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, City> $cities
  */
 class Province extends TerloquentBase
 {

@@ -15,6 +15,7 @@ use TerloquentID\Etc\TerloquentBase;
  * @property-read string $name
  * @property-read float $lat
  * @property-read float $long
+ * @property-read District $district
  */
 class Village extends TerloquentBase
 {
