@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace TerloquentID\Etc;
 
 use Illuminate\Database\Eloquent\Model;
-use Src\Etc\CheckRequiredPropertiesTrait;
 
 abstract class TerloquentBase extends Model
 {
@@ -34,6 +33,6 @@ abstract class TerloquentBase extends Model
 
     protected function sushiCacheReferencePath(): string
     {
-        return Helper::getPath($this->getTable());
+        return Helper::getCsvPath($this->getTable());
     }
 }
