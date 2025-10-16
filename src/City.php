@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace TerloquentID;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use TerloquentID\Etc\TerloquentBase;
 
 /**
@@ -35,6 +36,18 @@ class City extends TerloquentBase
     {
         return $this->belongsTo(
             Province::class
+        );
+    }
+
+    /**
+     * Get the districts for the city.
+     *
+     * @return HasMany<District, $this>
+     */
+    public function districts(): HasMany
+    {
+        return $this->hasMany(
+            District::class
         );
     }
 }
