@@ -1,0 +1,28 @@
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "autoload": {
+        "psr-4": {
+            "TerloquentID\\": "src/"
+        }
+    },
+    "name": "terloquent/id",
+    "require": {
+        "calebporzio/sushi": "^2.5",
+        "illuminate/database": "^10.0 || ^11.0 || ^12.0",
+        "illuminate/support": "^10.0 || ^11.0 || ^12.0",
+        "laravolt/indonesia": "^0.38.0"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.25",
+        "phpstan/phpstan": "^2.1"
+    },
+    "scripts": {
+        "lint": [
+            "pint --test",
+            "phpstan analyse -c phpstan.neon"
+        ],
+        "pint": "pint"
+    },
+    "type": "library",
+    "version": "0.0.1"
+}
