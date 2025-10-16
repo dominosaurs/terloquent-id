@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Src\Etc;
+namespace TerloquentID\Etc;
 
 trait CheckRequiredPropertiesTrait
 {
