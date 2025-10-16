@@ -1,11 +1,31 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "autoload": {
-        "psr-4": {
-            "TerloquentID\\": "src/"
-        }
-    },
     "name": "terloquent/id",
+    "description": "🌏 Eloquent models for Indonesian administrative regions — no database required.",
+    "type": "library",
+    "version": "0.0.1",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "eloquent",
+        "indonesia",
+        "administrative-divisions",
+        "territory",
+        "region",
+        "sushi"
+    ],
+    "homepage": "https://github.com/sensasi-delight/terloquent-id",
+    "support": {
+        "issues": "https://github.com/sensasi-delight/terloquent-id/issues",
+        "source": "https://github.com/sensasi-delight/terloquent-id"
+    },
+    "authors": [
+        {
+            "name": "🍕",
+            "email": "zainadam.id@gmail.com",
+            "homepage": "https://github.com/sensasi-delight"
+        }
+    ],
     "require": {
         "calebporzio/sushi": "^2.5",
         "illuminate/database": "^10.0 || ^11.0 || ^12.0",
@@ -15,13 +35,41 @@
         "laravel/pint": "^1.25",
         "phpstan/phpstan": "^2.1"
     },
+    "autoload": {
+        "psr-4": {
+            "TerloquentID\\": "src/"
+        }
+    },
     "scripts": {
         "lint": [
             "pint --test",
             "phpstan analyse -c phpstan.neon"
         ],
-        "pint": "pint"
+        "pint": "pint",
+        "analyse": "phpstan analyse -c phpstan.neon",
+        "post-install-cmd": [
+            "@get-id-data"
+        ],
+        "post-update-cmd": [
+            "@get-id-data"
+        ],
+        "get-id-data": [
+            "php scripts/get-id-administrative-divisions.php"
+        ]
     },
-    "type": "library",
-    "version": "0.0.1"
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        },
+        "preferred-install": "dist",
+        "optimize-autoloader": true
+    },
+    "extra": {
+        "dependencies-note": [
+            "Requires data from https://github.com/sensasi-delight/id-administrative-divisions"
+        ]
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
