@@ -13,25 +13,14 @@ class Helper
      * Returns the path of a CSV file or CSV directory.
      *
      * @param  string  $tableName  The name of the table
+     * @return string The full path of the CSV file or CSV directory.
      */
     public static function getPath(
         string $tableName,
     ): string {
-        $paths = [
-            'provinces' => 'vendor/laravolt/indonesia/resources/csv/provinces.csv',
-            'cities' => 'vendor/laravolt/indonesia/resources/csv/cities.csv',
-            'districts' => 'vendor/laravolt/indonesia/resources/csv/districts.csv',
-            'villages' => 'vendor/laravolt/indonesia/resources/csv/villages',
-        ];
+        $vendorDirPath = 'vendor/sensasi-delight/id-administrative-divisions';
 
-        throw_if(
-            (
-                $path = $paths[$tableName] ?? null
-            ) === null,
-            'Path is not found'
-        );
-
-        return App::basePath($path);
+        return App::basePath("{$vendorDirPath}/{$tableName}.csv");
     }
 
     /**
