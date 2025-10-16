@@ -5,11 +5,11 @@
 
 **Eloquent models for Indonesian administrative regions — no database required.**
 
-Powered by [Sushi](https://github.com/calebporzio/sushi), **Terloquent ID** lets you query provinces, cities, districts, and villages instantly — without any migrations or seeders.
+Powered by [Sushi](https://github.com/calebporzio/sushi), **Terloquent ID** lets you query provinces, regencies/cities, districts, and villages instantly — without any migrations or seeders.
 
 ## ✨ Features
 
-- 🇮🇩 Ready-to-use Indonesian administrative data: **Province**, **City**, **District**, **Village**
+- 🇮🇩 Ready-to-use Indonesian administrative data: **Province**, **Regency**, **District**, **Village**
 - ⚡ Works like standard Eloquent models (`where`, `first`, `whereLike`, etc.)
 - 🧠 No migrations or seeding required
 - 🗃️ Auto-cached via Sushi for fast performance
@@ -26,9 +26,9 @@ composer require terloquent/id
 Start using it right away:
 
 ```php
-use TerloquentID\City;
+use TerloquentID\Regency;
 
-$city = City::whereLike('name', '%Samarinda%')->firstOrFail();
+$regency = Regency::whereLike('name', '%Samarinda%')->firstOrFail();
 ```
 
 No setup. No migrations. No database.
@@ -41,7 +41,7 @@ The administrative data is sourced from the open dataset repository:
 This repository provides CSV files representing Indonesia’s full administrative hierarchy:
 
 ```text
-Province → City → District → Village
+Province → Regency → District → Village
 ```
 
 It may also include additional metadata such as:
@@ -58,7 +58,7 @@ It may also include additional metadata such as:
 
 - Built on [Sushi](https://github.com/calebporzio/sushi), which loads CSV data into an in-memory SQLite cache.
 - Relationships mirror the Indonesian hierarchy:
-  `Province → City → District → Village`
+  `Province → Regency → District → Village`
 
 ## 👥 Perfect For
 

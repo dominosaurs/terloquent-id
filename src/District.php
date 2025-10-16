@@ -12,32 +12,30 @@ use TerloquentID\Etc\TerloquentBase;
  * Terloquent model for Indonesia districts.
  *
  * @property-read int $id
- * @property-read int $city_id
+ * @property-read int $regency_id
  * @property-read string $name
- * @property-read float $lat
- * @property-read float $long
- * @property-read City $city
+ * @property-read Regency $regency
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Village> $villages
  */
 class District extends TerloquentBase
 {
     protected array $schema = [
         'id' => 'integer',
-        'city_id' => 'integer',
+        'regency_id' => 'integer',
         'name' => 'string',
         'lat' => 'float',
         'long' => 'float',
     ];
 
     /**
-     * Get the city that owns the district.
+     * Get the regency/city that owns the district.
      *
-     * @return BelongsTo<City, $this>
+     * @return BelongsTo<Regency, $this>
      */
-    public function city(): BelongsTo
+    public function regency(): BelongsTo
     {
         return $this->belongsTo(
-            City::class
+            Regency::class
         );
     }
 

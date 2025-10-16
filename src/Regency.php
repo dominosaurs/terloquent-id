@@ -9,28 +9,24 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use TerloquentID\Etc\TerloquentBase;
 
 /**
- * Terloquent model for Indonesia cities.
+ * Terloquent model for Indonesia regencies/cities.
  *
  * @property-read int $id
  * @property-read int $province_id
  * @property-read string $name
- * @property-read float $lat
- * @property-read float $long
  * @property-read \Illuminate\Database\Eloquent\Collection<int, District> $districts
  * @property-read Province $province
  */
-class City extends TerloquentBase
+class Regency extends TerloquentBase
 {
     protected array $schema = [
         'id' => 'integer',
         'province_id' => 'integer',
         'name' => 'string',
-        'lat' => 'float',
-        'long' => 'float',
     ];
 
     /**
-     * Get the province that owns the city.
+     * Get the province that owns the regency/city.
      *
      * @return BelongsTo<Province, $this>
      */
@@ -42,7 +38,7 @@ class City extends TerloquentBase
     }
 
     /**
-     * Get the districts for the city.
+     * Get the districts for the regency/city.
      *
      * @return HasMany<District, $this>
      */

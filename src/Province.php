@@ -12,28 +12,24 @@ use TerloquentID\Etc\TerloquentBase;
  *
  * @property-read int $id
  * @property-read string $name
- * @property-read float $lat
- * @property-read float $long
- * @property-read \Illuminate\Database\Eloquent\Collection<int, City> $cities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Regency> $regencies
  */
 class Province extends TerloquentBase
 {
     protected array $schema = [
         'id' => 'integer',
         'name' => 'string',
-        'lat' => 'float',
-        'long' => 'float',
     ];
 
     /**
-     * Get the cities for the province.
+     * Get the regencies/cities for the province.
      *
-     * @return HasMany<City, $this>
+     * @return HasMany<Regency, $this>
      */
-    public function cities(): HasMany
+    public function regencies(): HasMany
     {
         return $this->hasMany(
-            City::class
+            Regency::class
         );
     }
 }
