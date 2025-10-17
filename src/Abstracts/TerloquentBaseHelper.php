@@ -41,8 +41,8 @@ class TerloquentBaseHelper
         string $tableName,
         array $header
     ): array {
-        return static::csvPathToArray(
-            static::getCsvPath($tableName),
+        return self::csvPathToArray(
+            self::getCsvPath($tableName),
             $header
         );
     }
@@ -65,14 +65,14 @@ class TerloquentBaseHelper
             return $files->flatMap(
                 fn (
                     \SplFileInfo $file
-                ) => static::csvToArray(
+                ) => self::csvToArray(
                     $file->getRealPath(),
                     $header
                 )
             )->toArray();
         }
 
-        return static::csvToArray(
+        return self::csvToArray(
             $path,
             $header
         );
@@ -104,15 +104,15 @@ class TerloquentBaseHelper
             );
         }
 
-        $headerFromFile = static::validateHeaders(
+        $headerFromFile = self::validateHeaders(
             $requiredHeaders,
-            static::readCsvRow($handle),
+            self::readCsvRow($handle),
             $path
         );
 
         $data = [];
 
-        while ($row = static::readCsvRow($handle)) {
+        while ($row = self::readCsvRow($handle)) {
             $rowAssoc = array_combine(
                 $headerFromFile,
                 $row

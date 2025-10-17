@@ -49,7 +49,7 @@ class AdministrativeDivisions
     final public static function clear(): bool
     {
         return
-            static::deleteSushiSqlite() &&
+            self::deleteSushiSqlite() &&
             File::deleteDirectory(
                 static::path().'/..'
             );
@@ -70,12 +70,14 @@ class AdministrativeDivisions
      * Return current data status as array.
      *
      * @return array{
+     *  initialized: false,
+     *  message: string,
+     * }|array{
+     *  initialized: true,
+     *  path: string,
+     *  last_modified: ?string,
      *  branch: ?string,
      *  commit: ?string,
-     *  initialized: bool,
-     *  last_modified: ?string,
-     *  message: ?string,
-     *  path: string,
      * }
      */
     public static function status(): array
@@ -92,14 +94,17 @@ class AdministrativeDivisions
         $status = [
             'initialized' => true,
             'path' => $path,
-            'last_modified' => static::lastModified($path),
+            'last_modified' => self::lastModified($path),
+            'branch' => null,
+            'commit' => null,
         ];
 
         if (is_dir("$path/.git")) {
-            $status['branch'] = static::runGit(
+            $status['branch'] = self::runGit(
                 ['rev-parse', '--abbrev-ref', 'HEAD']
             );
-            $status['commit'] = static::runGit(
+
+            $status['commit'] = self::runGit(
                 ['log', '-1', '--pretty=%h - %s (%ci)']
             );
         }
@@ -126,11 +131,18 @@ class AdministrativeDivisions
 
     /**
      * Run git command in data directory.
+     *
+     * @param  string[]  $args
      */
     private static function runGit(array $args): ?string
     {
         $path = static::path();
-        $process = new Process(array_merge(['git', '-C', $path], $args));
+        $process = new Process(
+            array_merge(
+                ['git', '-C', $path], $args
+            )
+        );
+
         $process->run();
 
         return $process->isSuccessful() ? trim($process->getOutput()) : null;
