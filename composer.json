@@ -28,6 +28,7 @@
     ],
     "require": {
         "calebporzio/sushi": "^2.5",
+        "illuminate/console": "^10.0 || ^11.0 || ^12.0",
         "illuminate/database": "^10.0 || ^11.0 || ^12.0",
         "illuminate/support": "^10.0 || ^11.0 || ^12.0"
     },
@@ -46,16 +47,7 @@
             "phpstan analyse -c phpstan.neon"
         ],
         "pint": "pint",
-        "analyse": "phpstan analyse -c phpstan.neon",
-        "post-install-cmd": [
-            "@get-id-data"
-        ],
-        "post-update-cmd": [
-            "@get-id-data"
-        ],
-        "get-id-data": [
-            "php scripts/get-id-administrative-divisions.php"
-        ]
+        "analyse": "phpstan analyse -c phpstan.neon"
     },
     "config": {
         "sort-packages": true,
@@ -68,7 +60,12 @@
     "extra": {
         "dependencies-note": [
             "Requires data from https://github.com/sensasi-delight/id-administrative-divisions"
-        ]
+        ],
+        "laravel": {
+            "providers": [
+                "TerloquentID\\Providers\\TerloquentIDServiceProvider"
+            ]
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true
