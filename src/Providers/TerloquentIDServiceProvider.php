@@ -9,7 +9,13 @@ use TerloquentID\Console\Commands;
 
 class TerloquentIDServiceProvider extends ServiceProvider
 {
-    public function register(): void {}
+    public function register(): void
+    {
+        $this->mergeConfigFrom(
+            __DIR__.'/../../config.php',
+            'terloquent'
+        );
+    }
 
     public function boot(): void
     {
