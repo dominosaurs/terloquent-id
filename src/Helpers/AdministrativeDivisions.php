@@ -45,12 +45,25 @@ class AdministrativeDivisions
 
     /**
      * Clear locally stored data.
-     *
-     * @return bool|null `null` if directory not found.
      */
-    final public static function clear(): ?bool
+    final public static function clear(): bool
     {
-        return File::deleteDirectory(static::path());
+        return
+            static::deleteSushiSqlite() &&
+            File::deleteDirectory(
+                static::path().'/..'
+            );
+    }
+
+    /**
+     * Delete Sushi SQLite files.
+     */
+    private static function deleteSushiSqlite(): bool
+    {
+        $cachePath = App::storagePath('framework/cache');
+        $matchingFiles = File::glob("$cachePath/*terloquent*.sqlite");
+
+        return File::delete($matchingFiles);
     }
 
     /**
