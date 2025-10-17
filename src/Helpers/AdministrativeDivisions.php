@@ -18,7 +18,7 @@ class AdministrativeDivisions
     private static function rootPath(): string
     {
         return Config::get(
-            'terloquent.base_cache_path'
+            'terloquent.cache_directory'
         ).'/csv';
     }
 
@@ -27,7 +27,7 @@ class AdministrativeDivisions
     ): string {
         $rootPath = self::rootPath();
         $relativePath = Config::get(
-            'terloquent.resources.csv.relative_path'
+            'terloquent.sources.csv.data_subdirectory'
         );
 
         if (! is_dir($rootPath)) {
@@ -46,7 +46,7 @@ class AdministrativeDivisions
             'git',
             'clone',
             '--depth=1',
-            Config::get('terloquent.resources.csv.git_url'),
+            Config::get('terloquent.sources.csv.repository_url'),
             self::rootPath(),
         ]);
 

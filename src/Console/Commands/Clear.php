@@ -44,7 +44,7 @@ class Clear extends Command
 
     private function deleteBaseCachePath(): bool
     {
-        $basePath = Config::get('terloquent.base_cache_path');
+        $basePath = Config::get('terloquent.cache_directory');
 
         if (! File::deleteDirectory($basePath)) {
             $this->error('🌋 Failed to clear data.');

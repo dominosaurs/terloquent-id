@@ -2,35 +2,37 @@
 
 declare(strict_types=1);
 
-return [
-    /*
-    |---------------------------------------------------------------------------
-    | Base cache path
-    |---------------------------------------------------------------------------
-    |
-    | The path to store TerloquentID data.
-    |
-    */
-    'base_cache_path' => App::storagePath(
-        'framework/cache/terloquent-id'
-    ),
+use Illuminate\Support\Facades\App;
 
-    /*
-    |---------------------------------------------------------------------------
-    | Resources
-    |---------------------------------------------------------------------------
-    |
-    | Configuration for TerloquentID resources.
-    |
-    */
-    'resources' => [
+return [
+
+    /**
+     * The base directory where Terloquent caches its processed data.
+     */
+    'cache_directory' => App::storagePath('framework/cache/terloquent'),
+
+    /**
+     * Configuration for Terloquent data sources.
+     */
+    'sources' => [
+
         'csv' => [
-            'git_url' => 'https://github.com/sensasi-delight/id-administrative-divisions.git',
 
             /**
-             * Relative path to the CSV files.
+             * Repository URL
+             *
+             * The Git repository that hosts the official CSV data
+             * for Terloquent.
              */
-            'relative_path' => 'csv',
+            'repository_url' => 'https://github.com/sensasi-delight/id-administrative-divisions.git',
+
+            /**
+             * Data Subdirectory
+             *
+             * Relative path inside the repository where the CSV files
+             * are stored. Can be customized if your dataset uses a different structure.
+             */
+            'data_subdirectory' => 'csv',
         ],
     ],
 ];
