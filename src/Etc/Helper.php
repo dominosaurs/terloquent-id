@@ -32,8 +32,8 @@ class Helper
         string $tableName,
         array $header
     ): array {
-        return self::csvPathToArray(
-            self::getCsvPath($tableName),
+        return static::csvPathToArray(
+            static::getCsvPath($tableName),
             $header
         );
     }
@@ -78,8 +78,10 @@ class Helper
      *
      * @throws RuntimeException
      */
-    private static function csvToArray(string $path, array $requiredHeaders): array
-    {
+    private static function csvToArray(
+        string $path,
+        array $requiredHeaders
+    ): array {
         if (! is_readable($path)) {
             throw new RuntimeException(
                 "CSV file '{$path}' does not exist or is not readable."
@@ -93,15 +95,15 @@ class Helper
             );
         }
 
-        $headerFromFile = self::validateHeaders(
+        $headerFromFile = static::validateHeaders(
             $requiredHeaders,
-            self::readCsvRow($handle),
+            static::readCsvRow($handle),
             $path
         );
 
         $data = [];
 
-        while ($row = self::readCsvRow($handle)) {
+        while ($row = static::readCsvRow($handle)) {
             $rowAssoc = array_combine(
                 $headerFromFile,
                 $row
