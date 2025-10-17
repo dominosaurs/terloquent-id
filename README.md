@@ -60,6 +60,15 @@ It may also include additional metadata such as:
 - Relationships mirror the Indonesian hierarchy:
   `Province → Regency → District → Village`
 
+## 🛠️ Artisan Commands
+
+TerloquentID provides a few handy Artisan commands to help you manage local administrative data:
+
+| Command                         | Description                                                                                  |
+| ------------------------------- | -------------------------------------------------------------------------------------------- |
+| `php artisan terloquent:status` | 📊 Show the current status of the administrative data (path, last update, commit info, etc.) |
+| `php artisan terloquent:clear`  | 🧹 Clear all locally stored data and cache.                                                  |
+
 ## 👥 Perfect For
 
 - Laravel developers building Indonesia-focused applications

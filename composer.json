@@ -3,7 +3,6 @@
     "name": "terloquent/id",
     "description": "🌏 Eloquent models for Indonesian administrative regions — no database required.",
     "type": "library",
-    "version": "0.0.1",
     "license": "MIT",
     "keywords": [
         "laravel",
