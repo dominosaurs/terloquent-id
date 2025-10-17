@@ -19,15 +19,9 @@ class TerloquentBaseHelper
     final public static function getCsvPath(
         string $tableName,
     ): string {
-        if (
-            AdministrativeDivisions::status()['initialized'] == false
-        ) {
-            AdministrativeDivisions::init();
-        }
-
-        $resourcePath = AdministrativeDivisions::path();
-
-        return "$resourcePath/csv/$tableName.csv";
+        return AdministrativeDivisions::getCsvFilePath(
+            $tableName
+        );
     }
 
     /**

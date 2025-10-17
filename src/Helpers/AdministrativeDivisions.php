@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace TerloquentID\Helpers;
 
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Config;
 use Symfony\Component\Process\Process;
 
 /**
@@ -14,56 +13,46 @@ use Symfony\Component\Process\Process;
 class AdministrativeDivisions
 {
     /**
-     * Path to store administrative divisions data.
+     * Path to store administrative divisions repository files.
      */
-    final public static function path(): string
+    private static function rootPath(): string
     {
-        return App::storagePath(
-            'framework/cache/terloquent-id/id-administrative-divisions'
+        return Config::get(
+            'terloquent.base_cache_path'
+        ).'/csv';
+    }
+
+    final public static function getCsvFilePath(
+        string $tableName
+    ): string {
+        $rootPath = self::rootPath();
+        $relativePath = Config::get(
+            'terloquent.resources.csv.relative_path'
         );
+
+        if (! is_dir($rootPath)) {
+            self::init();
+        }
+
+        return "$rootPath/$relativePath/$tableName.csv";
     }
 
     /**
      * Initialize Indonesian administrative divisions data.
      */
-    final public static function init(): bool
+    private static function init(): bool
     {
-        $path = static::path();
-
         $process = new Process([
             'git',
             'clone',
             '--depth=1',
-            'https://github.com/sensasi-delight/id-administrative-divisions.git',
-            $path,
+            Config::get('terloquent.resources.csv.git_url'),
+            self::rootPath(),
         ]);
 
         $process->run();
 
         return $process->isSuccessful();
-    }
-
-    /**
-     * Clear locally stored data.
-     */
-    final public static function clear(): bool
-    {
-        return
-            self::deleteSushiSqlite() &&
-            File::deleteDirectory(
-                static::path().'/..'
-            );
-    }
-
-    /**
-     * Delete Sushi SQLite files.
-     */
-    private static function deleteSushiSqlite(): bool
-    {
-        $cachePath = App::storagePath('framework/cache');
-        $matchingFiles = File::glob("$cachePath/*terloquent*.sqlite");
-
-        return File::delete($matchingFiles);
     }
 
     /**
@@ -82,7 +71,7 @@ class AdministrativeDivisions
      */
     public static function status(): array
     {
-        $path = static::path();
+        $path = self::rootPath();
 
         if (! is_dir($path)) {
             return [
@@ -136,15 +125,16 @@ class AdministrativeDivisions
      */
     private static function runGit(array $args): ?string
     {
-        $path = static::path();
         $process = new Process(
             array_merge(
-                ['git', '-C', $path], $args
+                ['git', '-C', self::rootPath()], $args
             )
         );
 
         $process->run();
 
-        return $process->isSuccessful() ? trim($process->getOutput()) : null;
+        return $process->isSuccessful()
+            ? trim($process->getOutput())
+            : null;
     }
 }

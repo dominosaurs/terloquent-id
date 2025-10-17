@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace TerloquentID\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\File;
 use TerloquentID\Helpers\AdministrativeDivisions;
 
 class Clear extends Command
@@ -25,9 +28,10 @@ class Clear extends Command
             return self::SUCCESS;
         }
 
-        if (AdministrativeDivisions::clear() == false) {
-            $this->error('🌋 Failed to clear data.');
-
+        if (
+            ! $this->deleteBaseCachePath() ||
+            ! $this->deleteSushiSqlite()
+        ) {
             return self::FAILURE;
         }
 
@@ -36,5 +40,35 @@ class Clear extends Command
         );
 
         return self::SUCCESS;
+    }
+
+    private function deleteBaseCachePath(): bool
+    {
+        $basePath = Config::get('terloquent.base_cache_path');
+
+        if (! File::deleteDirectory($basePath)) {
+            $this->error('🌋 Failed to clear data.');
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Delete Sushi SQLite files.
+     */
+    private function deleteSushiSqlite(): bool
+    {
+        $cachePath = App::storagePath('framework/cache');
+        $matchingFiles = File::glob("$cachePath/*terloquent*.sqlite");
+
+        if (! File::delete($matchingFiles)) {
+            $this->error('🌋 Failed to clear data.');
+
+            return false;
+        }
+
+        return true;
     }
 }
