@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace TerloquentID\Etc;
+namespace TerloquentID\Abstracts;
 
 use Illuminate\Support\Facades\File;
 use RuntimeException;
+use TerloquentID\Helpers\AdministrativeDivisions;
 
-class Helper
+class TerloquentBaseHelper
 {
     /**
      * Returns the path of a CSV file or CSV directory.
@@ -15,10 +16,18 @@ class Helper
      * @param  string  $tableName  The name of the table
      * @return string The full path of the CSV file or CSV directory.
      */
-    public static function getCsvPath(
+    final public static function getCsvPath(
         string $tableName,
     ): string {
-        return __DIR__."/../../resources/csv/{$tableName}.csv";
+        if (
+            AdministrativeDivisions::status()['initialized'] == false
+        ) {
+            AdministrativeDivisions::init();
+        }
+
+        $resourcePath = AdministrativeDivisions::path();
+
+        return "$resourcePath/csv/$tableName.csv";
     }
 
     /**
@@ -28,7 +37,7 @@ class Helper
      * @param  string[]  $header  The header of the CSV file
      * @return array<int, array<string, mixed>>
      */
-    public static function getRows(
+    final public static function getRows(
         string $tableName,
         array $header
     ): array {
@@ -56,14 +65,14 @@ class Helper
             return $files->flatMap(
                 fn (
                     \SplFileInfo $file
-                ) => Helper::csvToArray(
+                ) => static::csvToArray(
                     $file->getRealPath(),
                     $header
                 )
             )->toArray();
         }
 
-        return Helper::csvToArray(
+        return static::csvToArray(
             $path,
             $header
         );

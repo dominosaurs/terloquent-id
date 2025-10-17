@@ -6,7 +6,7 @@ namespace TerloquentID;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use TerloquentID\Etc\TerloquentBase;
+use TerloquentID\Abstracts\TerloquentBase;
 
 /**
  * Terloquent model for Indonesia districts.
