@@ -13,7 +13,7 @@ Powered by [Sushi](https://github.com/calebporzio/sushi), **Terloquent ID** lets
 - ⚡ Works like standard Eloquent models (`where`, `first`, `whereLike`, etc.)
 - 🧠 No migrations or seeding required
 - 🗃️ Auto-cached via Sushi for fast performance
-- 📦 Uses external CSV data from [sensasi-delight/id-administrative-divisions](https://github.com/sensasi-delight/id-administrative-divisions)
+- 📦 Uses external CSV data from [dominosaurs/id-administrative-divisions](https://github.com/dominosaurs/id-administrative-divisions)
 
 ## 🚀 Installation
 
@@ -36,7 +36,7 @@ No setup. No migrations. No database.
 ## 🧩 Data Source
 
 The administrative data is sourced from the open dataset repository:
-👉 [**sensasi-delight/id-administrative-divisions**](https://github.com/sensasi-delight/id-administrative-divisions)
+👉 [**dominosaurs/id-administrative-divisions**](https://github.com/dominosaurs/id-administrative-divisions)
 
 This repository provides CSV files representing Indonesia’s full administrative hierarchy:
 
@@ -52,7 +52,7 @@ It may also include additional metadata such as:
 - Other optional attributes
 
 > Users cannot modify the data at runtime.
-> To suggest updates or corrections, please open a pull request to [sensasi-delight/id-administrative-divisions](https://github.com/sensasi-delight/id-administrative-divisions).
+> To suggest updates or corrections, please open a pull request to [dominosaurs/id-administrative-divisions](https://github.com/dominosaurs/id-administrative-divisions).
 
 ## ⚙️ Under the Hood
 
@@ -78,6 +78,6 @@ TerloquentID provides a few handy Artisan commands to help you manage local admi
 ## ❤️ Acknowledgements
 
 - [Caleb Porzio — Sushi](https://github.com/calebporzio/sushi)
-- All contributors to [sensasi-delight/id-administrative-divisions](https://github.com/sensasi-delight/id-administrative-divisions)
+- All contributors to [dominosaurs/id-administrative-divisions](https://github.com/dominosaurs/id-administrative-divisions)
 
-> Made with ❤️ by [🍕 sensasi-delight](https://github.com/sensasi-delight)
+> Made with ❤️ by [🍕 dominosaurs](https://github.com/dominosaurs)
