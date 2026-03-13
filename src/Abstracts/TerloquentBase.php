@@ -38,7 +38,7 @@ abstract class TerloquentBase extends Model
 
     protected function sushiShouldCache(): bool
     {
-        return true;
+        return config('terloquent.cache_enabled');
     }
 
     protected function sushiCacheReferencePath(): string
