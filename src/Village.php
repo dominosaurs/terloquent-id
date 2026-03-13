@@ -23,8 +23,6 @@ class Village extends TerloquentBase
         'id' => 'integer',
         'district_id' => 'integer',
         'name' => 'string',
-        'lat' => 'float',
-        'long' => 'float',
     ];
 
     /**

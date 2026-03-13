@@ -24,7 +24,7 @@ return [
              * The Git repository that hosts the official CSV data
              * for Terloquent.
              */
-            'repository_url' => 'https://github.com/sensasi-delight/id-administrative-divisions.git',
+            'repository_url' => 'https://github.com/dominosaurs/id-administrative-divisions.git',
 
             /**
              * Data Subdirectory
