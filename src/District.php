@@ -23,8 +23,6 @@ class District extends TerloquentBase
         'id' => 'integer',
         'regency_id' => 'integer',
         'name' => 'string',
-        'lat' => 'float',
-        'long' => 'float',
     ];
 
     /**
