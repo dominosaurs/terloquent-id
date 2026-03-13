@@ -13,16 +13,16 @@
         "region",
         "sushi"
     ],
-    "homepage": "https://github.com/sensasi-delight/terloquent-id",
+    "homepage": "https://github.com/dominosaurs/terloquent-id",
     "support": {
-        "issues": "https://github.com/sensasi-delight/terloquent-id/issues",
-        "source": "https://github.com/sensasi-delight/terloquent-id"
+        "issues": "https://github.com/dominosaurs/terloquent-id/issues",
+        "source": "https://github.com/dominosaurs/terloquent-id"
     },
     "authors": [
         {
             "name": "🍕",
             "email": "zainadam.id@gmail.com",
-            "homepage": "https://github.com/sensasi-delight"
+            "homepage": "https://github.com/dominosaurs"
         }
     ],
     "require": {
@@ -58,7 +58,7 @@
     },
     "extra": {
         "dependencies-note": [
-            "Requires data from https://github.com/sensasi-delight/id-administrative-divisions"
+            "Requires data from https://github.com/dominosaurs/id-administrative-divisions"
         ],
         "laravel": {
             "providers": [
