@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace TerloquentID\Abstracts;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Config;
+use Sushi\Sushi;
 
 abstract class TerloquentBase extends Model
 {
-    use \Sushi\Sushi;
+    use Sushi;
 
     /**
      * @var array<string, string>
@@ -38,7 +40,7 @@ abstract class TerloquentBase extends Model
 
     protected function sushiShouldCache(): bool
     {
-        return config('terloquent.cache_enabled');
+        return Config::get('terloquent.cache_enabled');
     }
 
     protected function sushiCacheReferencePath(): string
