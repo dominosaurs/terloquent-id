@@ -20,7 +20,7 @@ final readonly class AdministrativeDivisions
      */
     private function rootPath(): string
     {
-        return Config::get(
+        return Config::string(
             'terloquent.cache_directory'
         ).'/csv';
     }
@@ -29,7 +29,7 @@ final readonly class AdministrativeDivisions
         string $tableName
     ): string {
         $rootPath = $this->rootPath();
-        $relativePath = Config::get(
+        $relativePath = Config::string(
             'terloquent.sources.csv.data_subdirectory'
         );
 
@@ -49,7 +49,7 @@ final readonly class AdministrativeDivisions
             'git',
             'clone',
             '--depth=1',
-            Config::get('terloquent.sources.csv.repository_url'),
+            Config::string('terloquent.sources.csv.repository_url'),
             $this->rootPath(),
         ]);
 

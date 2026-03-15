@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TerloquentID\Concerns;
 
+use Illuminate\Support\Facades\Config;
 use Sushi\Sushi;
 use TerloquentID\Helpers\TerloquentBaseHelper;
 
@@ -34,7 +35,10 @@ trait TerloquentBase
 
     protected function sushiShouldCache(): bool
     {
-        return true;
+        return Config::boolean(
+            'cache_enabled',
+            Config::string('app.env') === 'production'
+        );
     }
 
     protected function sushiCacheReferencePath(): string
