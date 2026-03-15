@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TerloquentID;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use TerloquentID\Abstracts\TerloquentBase;
@@ -15,7 +16,7 @@ use TerloquentID\Abstracts\TerloquentBase;
  * @property-read int $regency_id
  * @property-read string $name
  * @property-read Regency $regency
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Village> $villages
+ * @property-read Collection<int, Village> $villages
  */
 class District extends TerloquentBase
 {
