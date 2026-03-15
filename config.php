@@ -12,17 +12,6 @@ return [
     'cache_directory' => App::storagePath('framework/cache/terloquent'),
 
     /**
-     * Enable Data Caching
-     *
-     * Determines whether the parsed data should be cached to disk.
-     * By default, caching is enabled in production environments.
-     */
-    'cache_enabled' => env(
-        'TERLOQUENT_CACHE_ENABLED',
-        config('app.env') === 'production'
-    ),
-
-    /**
      * Configuration for Terloquent data sources.
      */
     'sources' => [

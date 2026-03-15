@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace TerloquentID;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use TerloquentID\Abstracts\TerloquentBase;
+use TerloquentID\Concerns\TerloquentBase;
 
 /**
  * Terloquent model for Indonesia districts.
@@ -18,8 +19,13 @@ use TerloquentID\Abstracts\TerloquentBase;
  * @property-read Regency $regency
  * @property-read Collection<int, Village> $villages
  */
-class District extends TerloquentBase
+class District extends Model
 {
+    use TerloquentBase;
+
+    /**
+     * @var array<string, string>
+     */
     protected array $schema = [
         'id' => 'integer',
         'regency_id' => 'integer',
