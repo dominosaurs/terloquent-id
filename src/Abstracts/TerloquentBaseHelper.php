@@ -9,7 +9,11 @@ use Illuminate\Support\Facades\File;
 use RuntimeException;
 use TerloquentID\Helpers\AdministrativeDivisions;
 
-class TerloquentBaseHelper
+/**
+ * @method static string getCsvPath(string $tableName)
+ * @method static array<int, array<string, mixed>> getRows(string $tableName, string[] $headers)
+ */
+final readonly class TerloquentBaseHelper
 {
     /**
      * Returns the path of a CSV file or CSV directory.
@@ -17,7 +21,7 @@ class TerloquentBaseHelper
      * @param  string  $tableName  The name of the table
      * @return string The full path of the CSV file or CSV directory.
      */
-    final public static function getCsvPath(
+    private function getCsvPath(
         string $tableName,
     ): string {
         return AdministrativeDivisions::getCsvFilePath(
@@ -32,12 +36,12 @@ class TerloquentBaseHelper
      * @param  string[]  $header  The header of the CSV file
      * @return array<int, array<string, mixed>>
      */
-    final public static function getRows(
+    private function getRows(
         string $tableName,
         array $header
     ): array {
-        return self::csvPathToArray(
-            self::getCsvPath($tableName),
+        return $this->csvPathToArray(
+            $this->getCsvPath($tableName),
             $header
         );
     }
@@ -49,7 +53,7 @@ class TerloquentBaseHelper
      * @param  string[]  $header  The header of the CSV file
      * @return array<int, array<string, mixed>>
      */
-    private static function csvPathToArray(
+    private function csvPathToArray(
         string $path,
         array $header
     ): array {
@@ -60,14 +64,14 @@ class TerloquentBaseHelper
             return $files->flatMap(
                 fn (
                     \SplFileInfo $file
-                ) => self::csvToArray(
+                ) => $this->csvToArray(
                     $file->getRealPath(),
                     $header
                 )
             )->toArray();
         }
 
-        return self::csvToArray(
+        return $this->csvToArray(
             $path,
             $header
         );
@@ -82,7 +86,7 @@ class TerloquentBaseHelper
      *
      * @throws RuntimeException
      */
-    private static function csvToArray(
+    private function csvToArray(
         string $path,
         array $requiredHeaders
     ): array {
@@ -99,15 +103,15 @@ class TerloquentBaseHelper
             );
         }
 
-        $headerFromFile = self::validateHeaders(
+        $headerFromFile = $this->validateHeaders(
             $requiredHeaders,
-            self::readCsvRow($handle),
+            $this->readCsvRow($handle),
             $path
         );
 
         $data = [];
 
-        while ($row = self::readCsvRow($handle)) {
+        while ($row = $this->readCsvRow($handle)) {
             $rowAssoc = array_combine(
                 $headerFromFile,
                 $row
@@ -130,7 +134,7 @@ class TerloquentBaseHelper
      * @param  resource  $handle
      * @return array<int, string|null>|false
      */
-    private static function readCsvRow(
+    private function readCsvRow(
         $handle,
         string $delimiter = ',',
         string $escape = '\\'
@@ -152,7 +156,7 @@ class TerloquentBaseHelper
      *
      * @throws RuntimeException
      */
-    private static function validateHeaders(
+    private function validateHeaders(
         array $required,
         array|false $actual,
         string $path
@@ -182,5 +186,24 @@ class TerloquentBaseHelper
 
         /** @var string[] $actual */
         return $actual;
+    }
+
+    /**
+     * @param  array<int, mixed>  $arguments
+     * @return string|array<int, array<string, mixed>>
+     */
+    public static function __callStatic(string $name, array $arguments): string|array
+    {
+        if (! \in_array(
+            $name,
+            ['getRows', 'getCsvPath'],
+            true
+        )) {
+            throw new \BadMethodCallException(
+                'Call to undefined method '.__CLASS__."::{$name}()"
+            );
+        }
+
+        return (new self)->$name(...$arguments);
     }
 }
