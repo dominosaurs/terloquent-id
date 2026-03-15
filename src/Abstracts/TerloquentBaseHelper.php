@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TerloquentID\Abstracts;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use RuntimeException;
 use TerloquentID\Helpers\AdministrativeDivisions;
@@ -53,7 +54,7 @@ class TerloquentBaseHelper
         array $header
     ): array {
         if (is_dir($path)) {
-            /** @var \Illuminate\Support\Collection<int, \SplFileInfo> $files */
+            /** @var Collection<int, \SplFileInfo> $files */
             $files = collect(File::files($path));
 
             return $files->flatMap(

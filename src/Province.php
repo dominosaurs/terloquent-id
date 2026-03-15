@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TerloquentID;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use TerloquentID\Abstracts\TerloquentBase;
 
@@ -12,7 +13,7 @@ use TerloquentID\Abstracts\TerloquentBase;
  *
  * @property-read int $id
  * @property-read string $name
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Regency> $regencies
+ * @property-read Collection<int, Regency> $regencies
  */
 class Province extends TerloquentBase
 {

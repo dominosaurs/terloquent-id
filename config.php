@@ -10,7 +10,7 @@ return [
      * The base directory where Terloquent caches its processed data.
      */
     'cache_directory' => App::storagePath('framework/cache/terloquent'),
-    
+
     /**
      * Enable Data Caching
      *
