@@ -42,11 +42,9 @@
     },
     "scripts": {
         "lint": [
-            "pint --test",
+            "pint",
             "phpstan analyse -c phpstan.neon"
-        ],
-        "pint": "pint",
-        "analyse": "phpstan analyse -c phpstan.neon"
+        ]
     },
     "config": {
         "sort-packages": true,
