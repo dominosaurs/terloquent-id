@@ -9,29 +9,32 @@ use Symfony\Component\Process\Process;
 
 /**
  * Helper class for Indonesian administrative divisions.
+ *
+ * @method static array<string, string|bool|null> status()
+ * @method static string getCsvFilePath(string $tableName)
  */
-class AdministrativeDivisions
+final readonly class AdministrativeDivisions
 {
     /**
      * Path to store administrative divisions repository files.
      */
-    private static function rootPath(): string
+    private function rootPath(): string
     {
         return Config::get(
             'terloquent.cache_directory'
         ).'/csv';
     }
 
-    final public static function getCsvFilePath(
+    private function getCsvFilePath(
         string $tableName
     ): string {
-        $rootPath = self::rootPath();
+        $rootPath = $this->rootPath();
         $relativePath = Config::get(
             'terloquent.sources.csv.data_subdirectory'
         );
 
         if (! is_dir($rootPath)) {
-            self::init();
+            $this->init();
         }
 
         return "$rootPath/$relativePath/$tableName.csv";
@@ -40,14 +43,14 @@ class AdministrativeDivisions
     /**
      * Initialize Indonesian administrative divisions data.
      */
-    private static function init(): bool
+    private function init(): bool
     {
         $process = new Process([
             'git',
             'clone',
             '--depth=1',
             Config::get('terloquent.sources.csv.repository_url'),
-            self::rootPath(),
+            $this->rootPath(),
         ]);
 
         $process->run();
@@ -69,9 +72,9 @@ class AdministrativeDivisions
      *  commit: ?string,
      * }
      */
-    public static function status(): array
+    private function status(): array
     {
-        $path = self::rootPath();
+        $path = $this->rootPath();
 
         if (! is_dir($path)) {
             return [
@@ -83,17 +86,17 @@ class AdministrativeDivisions
         $status = [
             'initialized' => true,
             'path' => $path,
-            'last_modified' => self::lastModified($path),
+            'last_modified' => $this->lastModified($path),
             'branch' => null,
             'commit' => null,
         ];
 
         if (is_dir("$path/.git")) {
-            $status['branch'] = self::runGit(
+            $status['branch'] = $this->runGit(
                 ['rev-parse', '--abbrev-ref', 'HEAD']
             );
 
-            $status['commit'] = self::runGit(
+            $status['commit'] = $this->runGit(
                 ['log', '-1', '--pretty=%h - %s (%ci)']
             );
         }
@@ -104,7 +107,7 @@ class AdministrativeDivisions
     /**
      * Get last modified time of the directory.
      */
-    private static function lastModified(string $path): ?string
+    private function lastModified(string $path): ?string
     {
         $it = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator($path, \FilesystemIterator::SKIP_DOTS)
@@ -123,11 +126,11 @@ class AdministrativeDivisions
      *
      * @param  string[]  $args
      */
-    private static function runGit(array $args): ?string
+    private function runGit(array $args): ?string
     {
         $process = new Process(
             array_merge(
-                ['git', '-C', self::rootPath()], $args
+                ['git', '-C', $this->rootPath()], $args
             )
         );
 
@@ -136,5 +139,24 @@ class AdministrativeDivisions
         return $process->isSuccessful()
             ? trim($process->getOutput())
             : null;
+    }
+
+    /**
+     * @param  array<int, mixed>  $arguments
+     * @return string|array<string, string|bool|null>
+     */
+    public static function __callStatic(string $name, array $arguments): string|array
+    {
+        if (! \in_array(
+            $name,
+            ['getCsvFilePath', 'status'],
+            true
+        )) {
+            throw new \BadMethodCallException(
+                'Call to undefined method '.__CLASS__."::{$name}()"
+            );
+        }
+
+        return (new self)->$name(...$arguments);
     }
 }
