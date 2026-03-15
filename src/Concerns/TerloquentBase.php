@@ -2,20 +2,14 @@
 
 declare(strict_types=1);
 
-namespace TerloquentID\Abstracts;
+namespace TerloquentID\Concerns;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Config;
 use Sushi\Sushi;
+use TerloquentID\Helpers\TerloquentBaseHelper;
 
-abstract class TerloquentBase extends Model
+trait TerloquentBase
 {
     use Sushi;
-
-    /**
-     * @var array<string, string>
-     */
-    protected array $schema;
 
     public function __construct()
     {
@@ -40,7 +34,7 @@ abstract class TerloquentBase extends Model
 
     protected function sushiShouldCache(): bool
     {
-        return Config::get('terloquent.cache_enabled');
+        return true;
     }
 
     protected function sushiCacheReferencePath(): string

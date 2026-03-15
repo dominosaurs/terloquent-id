@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace TerloquentID\Abstracts;
+namespace TerloquentID\Helpers;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use RuntimeException;
-use TerloquentID\Helpers\AdministrativeDivisions;
 
 /**
  * @method static string getCsvPath(string $tableName)
