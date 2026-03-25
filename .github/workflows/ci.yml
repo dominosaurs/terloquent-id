@@ -18,15 +18,68 @@ jobs:
         include:
           - laravel: 11.*
             testbench: 9.*
+            pest: ^3.7
+            larastan: ^2.9
           - laravel: 12.*
             testbench: 10.*
+            pest: ^3.7
+            larastan: ^2.9
           - laravel: 13.*
             testbench: 11.*
+            pest: ^4.4
+            larastan: ^3.0
         exclude:
-          - php: 8.5
-            laravel: 11.*
           - php: 8.2
             laravel: 13.*
+          - php: 8.3
+            laravel: 13.*
+          # Override pest/larastan for PHP 8.3+ on older Laravel if needed
+          # But keeping it simple: PHP 8.2 will use the include versions.
+          # We need to make sure PHP 8.3+ uses Pest 4.
+          - php: 8.3
+            laravel: 11.*
+          - php: 8.3
+            laravel: 12.*
+          - php: 8.4
+            laravel: 11.*
+          - php: 8.4
+            laravel: 12.*
+          - php: 8.5
+            laravel: 11.*
+          - php: 8.5
+            laravel: 12.*
+        # Add back PHP 8.3+ combinations with Pest 4
+        include:
+          - php: 8.3
+            laravel: 11.*
+            testbench: 9.*
+            pest: ^4.4
+            larastan: ^3.0
+          - php: 8.3
+            laravel: 12.*
+            testbench: 10.*
+            pest: ^4.4
+            larastan: ^3.0
+          - php: 8.4
+            laravel: 11.*
+            testbench: 9.*
+            pest: ^4.4
+            larastan: ^3.0
+          - php: 8.4
+            laravel: 12.*
+            testbench: 10.*
+            pest: ^4.4
+            larastan: ^3.0
+          - php: 8.5
+            laravel: 11.*
+            testbench: 9.*
+            pest: ^4.4
+            larastan: ^3.0
+          - php: 8.5
+            laravel: 12.*
+            testbench: 10.*
+            pest: ^4.4
+            larastan: ^3.0
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }}
 
@@ -59,8 +112,7 @@ jobs:
 
       - name: 📦 Install dependencies
         run: |
-          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-progress
-          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "pestphp/pest:${{ matrix.pest }}" "larastan/larastan:${{ matrix.larastan }}" --no-interaction --no-update
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-progress
 
       - name: 💅 Run lint (Pint)
