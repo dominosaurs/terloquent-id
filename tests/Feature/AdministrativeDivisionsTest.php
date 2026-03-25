@@ -17,6 +17,10 @@ it('works', function () {
     expect($r)->toBeInstanceOf(Regency::class);
     expect($d)->toBeInstanceOf(District::class);
     expect($v)->toBeInstanceOf(Village::class);
+
+    expect($v->district)->toBeInstanceOf(District::class);
+    expect($v->district->regency)->toBeInstanceOf(Regency::class);
+    expect($v->district->regency->province)->toBeInstanceOf(Province::class);
 });
 
 test('provinces have regencies', function () {
@@ -34,8 +38,6 @@ test('regencies have districts', function () {
 });
 
 test('districts have villages', function () {
-    $district = District::findOrFail(1101010); // TEUPAH SELATAN (Note: check actual ID in CSV)
-    // Let's find a district from a regency instead to be sure
     $district = District::where('regency_id', 1101)->firstOrFail();
 
     expect($district->villages)->not->toBeEmpty()
@@ -71,6 +73,6 @@ test('advanced eloquent operations work', function () {
 });
 
 test('it handles non-existent records gracefully', function () {
-    $province = Province::findOrFail(999999);
+    $province = Province::find(999999);
     expect($province)->toBeNull();
 });
