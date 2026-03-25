@@ -1,7 +1,9 @@
 # 🇮🇩 Terloquent ID
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Packagist Version](https://img.shields.io/packagist/v/terloquent/id)](https://packagist.org/packages/terloquent/id)
+[![Tests](https://github.com/dominosaurs/terloquent-id/actions/workflows/ci.yml/badge.svg)](https://github.com/dominosaurs/terloquent-id/actions/workflows/ci.yml)
+[![Latest Stable Version](https://img.shields.io/packagist/v/terloquent/id.svg?style=flat-square)](https://packagist.org/packages/terloquent/id)
+[![PHP Version Require](https://img.shields.io/packagist/php-v/terloquent/id.svg?style=flat-square)](https://packagist.org/packages/terloquent/id)
+[![License](https://img.shields.io/packagist/l/terloquent/id.svg?style=flat-square)](https://packagist.org/packages/terloquent/id)
 
 **Eloquent models for Indonesian administrative regions — no database required.**
 
@@ -64,10 +66,10 @@ It may also include additional metadata such as:
 
 TerloquentID provides a few handy Artisan commands to help you manage local administrative data:
 
-| Command                         | Description                                                                                  |
-| ------------------------------- | -------------------------------------------------------------------------------------------- |
-| `php artisan terloquent:status` | 📊 Show the current status of the administrative data (path, last update, commit info, etc.) |
-| `php artisan terloquent:clear`  | 🧹 Clear all locally stored data and cache.                                                  |
+| Command                            | Description                                                                                  |
+| ---------------------------------- | -------------------------------------------------------------------------------------------- |
+| `php artisan terloquent-id:status` | 📊 Show the current status of the administrative data (path, last update, commit info, etc.) |
+| `php artisan terloquent-id:clear`  | 🧹 Clear all locally stored data and cache.                                                  |
 
 ## 👥 Perfect For
 
