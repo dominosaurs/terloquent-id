@@ -12,60 +12,16 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [8.2, 8.3, 8.4, 8.5]
+        php: [8.3, 8.4, 8.5]
         laravel: [11.*, 12.*, 13.*]
         dependency-version: [prefer-stable]
         include:
-          # Default configurations for Laravel 11 (PHP 8.2 fallback)
           - laravel: 11.*
             testbench: 9.*
-            pest: ^3.7
-            larastan: ^2.9
-          # Default configurations for Laravel 12 (PHP 8.2 fallback)
           - laravel: 12.*
             testbench: 10.*
-            pest: ^3.7
-            larastan: ^2.9
-          # Default configurations for Laravel 13 (Always PHP 8.4+)
           - laravel: 13.*
             testbench: 11.*
-            pest: ^4.4
-            larastan: ^3.0
-
-          # Overrides for PHP 8.3+ to use Pest 4 and Larastan 3
-          - php: 8.3
-            laravel: 11.*
-            testbench: 9.*
-            pest: ^4.4
-            larastan: ^3.0
-          - php: 8.3
-            laravel: 12.*
-            testbench: 10.*
-            pest: ^4.4
-            larastan: ^3.0
-          - php: 8.4
-            laravel: 11.*
-            testbench: 9.*
-            pest: ^4.4
-            larastan: ^3.0
-          - php: 8.4
-            laravel: 12.*
-            testbench: 10.*
-            pest: ^4.4
-            larastan: ^3.0
-          - php: 8.5
-            laravel: 11.*
-            testbench: 9.*
-            pest: ^4.4
-            larastan: ^3.0
-          - php: 8.5
-            laravel: 12.*
-            testbench: 10.*
-            pest: ^4.4
-            larastan: ^3.0
-        exclude:
-          - php: 8.2
-            laravel: 13.*
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }}
 
@@ -96,9 +52,9 @@ jobs:
           echo "::add-matcher::${{ runner.tool_cache }}/php.json"
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
-      - name: 📦 Install dependencies
-        run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "pestphp/pest:${{ matrix.pest }}" "larastan/larastan:${{ matrix.larastan }}" --no-interaction --no-update
+      - run: |
+          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-progress
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-progress
 
       - name: 💅 Run lint (Pint)
