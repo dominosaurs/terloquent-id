@@ -16,70 +16,56 @@ jobs:
         laravel: [11.*, 12.*, 13.*]
         dependency-version: [prefer-stable]
         include:
+          # Default configurations for Laravel 11 (PHP 8.2 fallback)
           - laravel: 11.*
             testbench: 9.*
             pest: ^3.7
             larastan: ^2.9
+          # Default configurations for Laravel 12 (PHP 8.2 fallback)
           - laravel: 12.*
             testbench: 10.*
             pest: ^3.7
             larastan: ^2.9
+          # Default configurations for Laravel 13 (Always PHP 8.4+)
           - laravel: 13.*
             testbench: 11.*
+            pest: ^4.4
+            larastan: ^3.0
+
+          # Overrides for PHP 8.3+ to use Pest 4 and Larastan 3
+          - php: 8.3
+            laravel: 11.*
+            testbench: 9.*
+            pest: ^4.4
+            larastan: ^3.0
+          - php: 8.3
+            laravel: 12.*
+            testbench: 10.*
+            pest: ^4.4
+            larastan: ^3.0
+          - php: 8.4
+            laravel: 11.*
+            testbench: 9.*
+            pest: ^4.4
+            larastan: ^3.0
+          - php: 8.4
+            laravel: 12.*
+            testbench: 10.*
+            pest: ^4.4
+            larastan: ^3.0
+          - php: 8.5
+            laravel: 11.*
+            testbench: 9.*
+            pest: ^4.4
+            larastan: ^3.0
+          - php: 8.5
+            laravel: 12.*
+            testbench: 10.*
             pest: ^4.4
             larastan: ^3.0
         exclude:
           - php: 8.2
             laravel: 13.*
-          - php: 8.3
-            laravel: 13.*
-          # Override pest/larastan for PHP 8.3+ on older Laravel if needed
-          # But keeping it simple: PHP 8.2 will use the include versions.
-          # We need to make sure PHP 8.3+ uses Pest 4.
-          - php: 8.3
-            laravel: 11.*
-          - php: 8.3
-            laravel: 12.*
-          - php: 8.4
-            laravel: 11.*
-          - php: 8.4
-            laravel: 12.*
-          - php: 8.5
-            laravel: 11.*
-          - php: 8.5
-            laravel: 12.*
-        # Add back PHP 8.3+ combinations with Pest 4
-        include:
-          - php: 8.3
-            laravel: 11.*
-            testbench: 9.*
-            pest: ^4.4
-            larastan: ^3.0
-          - php: 8.3
-            laravel: 12.*
-            testbench: 10.*
-            pest: ^4.4
-            larastan: ^3.0
-          - php: 8.4
-            laravel: 11.*
-            testbench: 9.*
-            pest: ^4.4
-            larastan: ^3.0
-          - php: 8.4
-            laravel: 12.*
-            testbench: 10.*
-            pest: ^4.4
-            larastan: ^3.0
-          - php: 8.5
-            laravel: 11.*
-            testbench: 9.*
-            pest: ^4.4
-            larastan: ^3.0
-          - php: 8.5
-            laravel: 12.*
-            testbench: 10.*
-            pest: ^4.4
-            larastan: ^3.0
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }}
 
