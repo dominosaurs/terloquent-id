@@ -32,7 +32,11 @@
         "illuminate/support": "^11.0 || ^12.0 || ^13.0"
     },
     "require-dev": {
+        "larastan/larastan": "^3.9",
+        "laravel/boost": "^2.4",
         "laravel/pint": "^1.25",
+        "orchestra/testbench": "^11.0",
+        "pestphp/pest": "^4.4",
         "phpstan/phpstan": "^2.1"
     },
     "autoload": {
@@ -44,11 +48,28 @@
         "lint": [
             "pint",
             "phpstan analyse -c phpstan.neon"
+        ],
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare"
+        ],
+        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "build": "@php vendor/bin/testbench workbench:build --ansi",
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "@build",
+            "@php vendor/bin/testbench serve --ansi"
+        ],
+        "test": [
+            "@clear",
+            "@php vendor/bin/pest"
         ]
     },
     "config": {
         "sort-packages": true,
         "allow-plugins": {
+            "pestphp/pest-plugin": true,
             "phpstan/extension-installer": true
         },
         "preferred-install": "dist",
@@ -64,6 +85,14 @@
             ]
         }
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "autoload-dev": {
+        "psr-4": {
+            "Workbench\\App\\": "workbench/app/",
+            "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+            "Workbench\\Database\\Seeders\\": "workbench/database/seeders/",
+            "Tests\\": "tests/"
+        }
+    }
 }
