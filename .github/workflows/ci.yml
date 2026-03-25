@@ -15,6 +15,13 @@ jobs:
         php: [8.4]
         laravel: [11.*, 12.*, 13.*]
         dependency-version: [prefer-stable]
+        include:
+          - laravel: 11.*
+            testbench: 9.*
+          - laravel: 12.*
+            testbench: 10.*
+          - laravel: 13.*
+            testbench: 11.*
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }}
 
@@ -48,7 +55,7 @@ jobs:
       - name: 📦 Install dependencies
         run: |
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-progress
-          composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-progress
 
       - name: 💅 Run lint (Pint)
