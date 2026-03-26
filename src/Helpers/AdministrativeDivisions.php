@@ -110,12 +110,22 @@ final readonly class AdministrativeDivisions
     private function lastModified(string $path): ?string
     {
         $it = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($path, \FilesystemIterator::SKIP_DOTS)
+            new \RecursiveDirectoryIterator(
+                $path,
+                \FilesystemIterator::SKIP_DOTS
+            )
         );
 
-        $latest = 0;
+        $latest = null;
+
         foreach ($it as $file) {
-            $latest = max($latest, $file->getMTime());
+            if ($file instanceof \SplFileInfo === false) {
+                throw new \UnexpectedValueException(
+                    'Failed to get SplFileInfo.'
+                );
+            }
+
+            $latest = (int) max($latest, $file->getMTime());
         }
 
         return $latest ? date('Y-m-d H:i:s', $latest) : null;
@@ -142,7 +152,7 @@ final readonly class AdministrativeDivisions
     }
 
     /**
-     * @param  array<int, mixed>  $arguments
+     * @param  array<int, string>  $arguments
      * @return string|array<string, string|bool|null>
      */
     public static function __callStatic(string $name, array $arguments): string|array
