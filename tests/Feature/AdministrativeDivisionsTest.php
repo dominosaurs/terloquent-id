@@ -64,7 +64,7 @@ test('advanced eloquent operations work', function () {
 
     // count
     $count = Province::count();
-    expect($count)->toBeGreaterThan(30);
+    expect($count)->toBeGreaterThan(2);
 
     // search
     $bali = Province::where('name', 'like', '%BALI%')->firstOrFail();

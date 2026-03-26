@@ -24,27 +24,21 @@ return [
     ),
 
     /**
-     * Configuration for Terloquent data sources.
+     * Download Timeout
+     *
+     * The maximum number of seconds to wait for a CSV download to complete.
+     */
+    'timeout' => env('TERLOQUENT_DOWNLOAD_TIMEOUT'),
+
+    /**
+     * Remote Data Sources
+     *
+     * The full raw GitHub URLs for each administrative division CSV file.
      */
     'sources' => [
-
-        'csv' => [
-
-            /**
-             * Repository URL
-             *
-             * The Git repository that hosts the official CSV data
-             * for Terloquent.
-             */
-            'repository_url' => 'https://github.com/dominosaurs/id-administrative-divisions.git',
-
-            /**
-             * Data Subdirectory
-             *
-             * Relative path inside the repository where the CSV files
-             * are stored. Can be customized if your dataset uses a different structure.
-             */
-            'data_subdirectory' => 'csv',
-        ],
+        'provinces' => 'https://raw.githubusercontent.com/dominosaurs/id-administrative-divisions/refs/tags/v0.0.1/csv/provinces.csv',
+        'regencies' => 'https://raw.githubusercontent.com/dominosaurs/id-administrative-divisions/refs/tags/v0.0.1/csv/regencies.csv',
+        'districts' => 'https://raw.githubusercontent.com/dominosaurs/id-administrative-divisions/refs/tags/v0.0.1/csv/districts.csv',
+        'villages' => 'https://raw.githubusercontent.com/dominosaurs/id-administrative-divisions/refs/tags/v0.0.1/csv/villages.csv',
     ],
 ];

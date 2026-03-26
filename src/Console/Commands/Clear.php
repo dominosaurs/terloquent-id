@@ -8,9 +8,9 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
-use TerloquentID\Helpers\AdministrativeDivisions;
+use TerloquentID\Helpers\AdministrativeDivisionDataHelper;
 
-class Clear extends Command
+final class Clear extends Command
 {
     protected $signature = 'terloquent-id:clear';
 
@@ -18,7 +18,7 @@ class Clear extends Command
 
     public function handle(): int
     {
-        $status = AdministrativeDivisions::status();
+        $status = AdministrativeDivisionDataHelper::status();
 
         if (! $status['initialized']) {
             $this->warn(

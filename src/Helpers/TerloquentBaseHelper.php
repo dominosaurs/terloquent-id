@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace TerloquentID\Helpers;
 
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\File;
 use RuntimeException;
 
 /**
@@ -15,15 +13,15 @@ use RuntimeException;
 final readonly class TerloquentBaseHelper
 {
     /**
-     * Returns the path of a CSV file or CSV directory.
+     * Returns the path of a CSV file.
      *
      * @param  string  $tableName  The name of the table
-     * @return string The full path of the CSV file or CSV directory.
+     * @return string The full path of the CSV file.
      */
     private function getCsvPath(
         string $tableName,
     ): string {
-        return AdministrativeDivisions::getCsvFilePath(
+        return AdministrativeDivisionDataHelper::getCsvFilePath(
             $tableName
         );
     }
@@ -39,44 +37,8 @@ final readonly class TerloquentBaseHelper
         string $tableName,
         array $header
     ): array {
-        return $this->csvPathToArray(
-            $this->getCsvPath($tableName),
-            $header
-        );
-    }
-
-    /**
-     * Converts a CSV file to an array.
-     *
-     * @param  string  $path  The path to the CSV file or CSV directory
-     * @param  string[]  $header  The header of the CSV file
-     * @return array<int, array<string, mixed>>
-     */
-    private function csvPathToArray(
-        string $path,
-        array $header
-    ): array {
-        if (is_dir($path)) {
-            /** @var Collection<int, \SplFileInfo> $files */
-            $files = collect(File::files($path));
-
-            /**
-             * @var array<int, array<string, mixed>>
-             */
-            $data = $files->flatMap(
-                fn (
-                    \SplFileInfo $file
-                ): array => $this->csvToArray(
-                    $file->getRealPath(),
-                    $header
-                )
-            )->toArray();
-
-            return $data;
-        }
-
         return $this->csvToArray(
-            $path,
+            $this->getCsvPath($tableName),
             $header
         );
     }
@@ -116,6 +78,9 @@ final readonly class TerloquentBaseHelper
         $data = [];
 
         while ($row = $this->readCsvRow($handle)) {
+            /**
+             * @var array<string, string|null>
+             */
             $rowAssoc = array_combine(
                 $headerFromFile,
                 $row

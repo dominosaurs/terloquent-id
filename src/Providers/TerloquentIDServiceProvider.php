@@ -7,7 +7,7 @@ namespace TerloquentID\Providers;
 use Illuminate\Support\ServiceProvider;
 use TerloquentID\Console\Commands;
 
-class TerloquentIDServiceProvider extends ServiceProvider
+final class TerloquentIDServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
@@ -26,7 +26,7 @@ class TerloquentIDServiceProvider extends ServiceProvider
             ]);
 
             $this->optimizes(
-                clear: 'terloquent:clear',
+                clear: 'terloquent-id:clear',
             );
         }
     }
