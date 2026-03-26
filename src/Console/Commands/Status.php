@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace TerloquentID\Console\Commands;
 
 use Illuminate\Console\Command;
-use TerloquentID\Helpers\AdministrativeDivisions;
+use TerloquentID\Helpers\AdministrativeDivisionDataHelper;
 
-class Status extends Command
+final class Status extends Command
 {
     protected $signature = 'terloquent-id:status';
 
@@ -15,7 +15,7 @@ class Status extends Command
 
     public function handle(): int
     {
-        $status = AdministrativeDivisions::status();
+        $status = AdministrativeDivisionDataHelper::status();
 
         if (! $status['initialized']) {
             $this->warn('🚫 '.$status['message']);
@@ -30,7 +30,7 @@ class Status extends Command
             collect($status)->map(
                 fn ($v, $k) => [
                     $k,
-                    is_scalar($v)
+                    \is_scalar($v)
                         ? $v : json_encode($v),
                 ]
             )->toArray()
