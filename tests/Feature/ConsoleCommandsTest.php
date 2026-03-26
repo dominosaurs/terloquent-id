@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 
 test('terloquent-id:status command works', function () {
@@ -18,7 +19,7 @@ test('terloquent-id:clear command clears cache', function () {
     // Ensure it's initialized first
     Artisan::call('terloquent-id:status');
 
-    $cacheDir = config('terloquent.cache_directory');
+    $cacheDir = Config::string('terloquent.cache_directory');
 
     // Check if directory exists
     expect(File::isDirectory($cacheDir))->toBeTrue();

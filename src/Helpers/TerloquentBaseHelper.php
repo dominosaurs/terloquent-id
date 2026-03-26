@@ -60,14 +60,19 @@ final readonly class TerloquentBaseHelper
             /** @var Collection<int, \SplFileInfo> $files */
             $files = collect(File::files($path));
 
-            return $files->flatMap(
+            /**
+             * @var array<int, array<string, mixed>>
+             */
+            $data = $files->flatMap(
                 fn (
                     \SplFileInfo $file
-                ) => $this->csvToArray(
+                ): array => $this->csvToArray(
                     $file->getRealPath(),
                     $header
                 )
             )->toArray();
+
+            return $data;
         }
 
         return $this->csvToArray(
@@ -188,7 +193,7 @@ final readonly class TerloquentBaseHelper
     }
 
     /**
-     * @param  array<int, mixed>  $arguments
+     * @param  array<int, string>  $arguments
      * @return string|array<int, array<string, mixed>>
      */
     public static function __callStatic(string $name, array $arguments): string|array
