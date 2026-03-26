@@ -2,7 +2,7 @@
 
 [![Tests](https://github.com/dominosaurs/terloquent-id/actions/workflows/ci.yml/badge.svg)](https://github.com/dominosaurs/terloquent-id/actions/workflows/ci.yml)
 [![Latest Stable Version](https://img.shields.io/packagist/v/terloquent/id.svg?style=flat-square)](https://packagist.org/packages/terloquent/id)
-[![PHP Version Require](https://img.shields.io/packagist/php-v/terloquent/id.svg?style=flat-square)](https://packagist.org/packages/terloquent/id)
+[![Laravel Version](https://img.shields.io/badge/Laravel-11%20%7C%2012%20%7C%2013-F05340?style=flat-square&logo=laravel)](https://packagist.org/packages/terloquent/id)
 [![License](https://img.shields.io/packagist/l/terloquent/id.svg?style=flat-square)](https://packagist.org/packages/terloquent/id)
 
 **Eloquent models for Indonesian administrative regions — no database required.**
