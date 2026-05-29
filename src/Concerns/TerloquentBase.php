@@ -12,16 +12,6 @@ trait TerloquentBase
 {
     use Sushi;
 
-    public function __construct()
-    {
-        throw_if(
-            ! isset($this->schema),
-            'Schema must be set'
-        );
-
-        parent::__construct();
-    }
-
     /**
      * @return array<int, array<string, mixed>>
      */
