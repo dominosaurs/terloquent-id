@@ -22,7 +22,10 @@ class Province extends Model
     use TerloquentBase;
 
     /**
-     * @var array<string, string>
+     * @var array{
+     *  'id': 'integer',
+     *  'name': 'string',
+     * }
      */
     protected array $schema = [
         'id' => 'integer',

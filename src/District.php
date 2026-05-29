@@ -24,7 +24,11 @@ class District extends Model
     use TerloquentBase;
 
     /**
-     * @var array<string, string>
+     * @var array{
+     *  'id': 'integer',
+     *  'regency_id': 'integer',
+     *  'name': 'string',
+     * }
      */
     protected array $schema = [
         'id' => 'integer',
