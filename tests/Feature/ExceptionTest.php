@@ -4,26 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
-use TerloquentID\Concerns\TerloquentBase;
 use TerloquentID\Exceptions\DataSourceUnavailableException;
-
-class ExceptionModel extends Model
-{
-    use TerloquentBase;
-
-    protected $table = 'exception_test';
-
-    /**
-     * @var array<string, string>
-     */
-    protected array $schema = [
-        'id' => 'integer',
-        'name' => 'string',
-    ];
-}
+use Tests\Fixtures\ExceptionModel;
 
 test('it throws DataSourceUnavailableException when download fails', function () {
     // Config the source for this fake model
